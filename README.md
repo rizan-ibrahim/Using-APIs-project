@@ -1,2 +1,2 @@
 # Using-APIs-project
-this is crypto app project abut using APIs 
+this is crypto app project about using APIs 
