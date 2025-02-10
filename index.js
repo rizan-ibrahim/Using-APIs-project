@@ -1,43 +1,70 @@
-const topCrypto = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd";
-const solanaChain = "https://api.coingecko.com/api/v3/coins/solana";
+
+import { topCrypto } from "./constant.js";
+
 
 const createTable = async () => {
     const userInterface = document.getElementById("user-interface");
 
-    // Create a container for the table
-    const tableContainer = document.createElement("div");
-    tableContainer.classList.add("table-container");
+   
+    const dataContainer = document.createElement("div");
+    dataContainer.classList.add("data-container");
 
-    // Create table
     const table = document.createElement("table");
-    table.classList.add("crypto-table");
+    table.id = "coins-body";
 
-    // Create thead (Header)
-    const thead = document.createElement("thead");
-    thead.classList.add("header");
-    thead.innerHTML = `
-        <tr>
-            <th>#Name</th>
-            <th>Price</th>
-            <th>Volume</th>
-            <th>Market Cap</th>
-            <th>Circulating Supply</th>
-            <th>Change</th>
-            <th>Price Graph</th>
-        </tr>
-    `;
 
-    // Create tbody (Data rows)
+
+//info section
+    const infoSection = document.createElement("div");
+    infoSection.classList.add("info-section");
+//search input container
+    const inputContainer = document.createElement("inputcontainer");
+    inputContainer.classList.add("input-container");
+
+    
+//search input
+    const input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = "type coin name";
+    input.id = "search";
+//search button
+    const searchBtn = document.createElement("button");
+    searchBtn.innerHTML = "Search";
+    searchBtn.id="search-btn";
+//crypto infoconatiner
+    const crptoInfo = document.createElement("div");
+    crptoInfo.classList.add("crypto-info");
+
+
+
+
     const tbody = document.createElement("tbody");
     tbody.id = "token-body";
+
+    const header = document.createElement("header");
+    header.classList.add("header");
+    header.innerHTML = `
+       
+        <div>#name</div>
+        <div>Price</div>
+        <div>Volume</div>
+        <div>Market Cap</div>
+        <div>Circulating Supply</div>
+        <div>Price Change (24h)</div>
+    `;
 
     
 
     // Append elements
-    table.appendChild(thead);
-    table.appendChild(tbody);
-    tableContainer.appendChild(table);
-    userInterface.appendChild(tableContainer);
+    userInterface.appendChild(header);
+    dataContainer.appendChild(table);
+    userInterface.appendChild(dataContainer);
+    userInterface.appendChild(infoSection);
+    inputContainer.appendChild(input);
+    inputContainer.appendChild(searchBtn);
+    infoSection.appendChild(inputContainer);
+    infoSection.appendChild(crptoInfo);
+
 
     // Fetch and insert data
     fetchCoinsData();
@@ -47,19 +74,18 @@ const fetchCoinsData = async () => {
     try {
         const response = await fetch(topCrypto);
         const data = await response.json();
-        const tbody = document.getElementById("token-body");
+        const tbody = document.getElementById("coins-body");
 
         tbody.innerHTML = data
-            .slice(0, 100) // Display first 20 coins
+            .slice(0, 200) 
             .map((coin,num) => `
                 <tr>
                     <td> ${num+1} <img src="${coin.image}" alt="${coin.name}" width="16px"> ${coin.name} </td>
                     <td>$${coin.current_price.toFixed(4)}</td>
                     <td>$${coin.total_volume.toLocaleString(1)}</td>
                     <td>$${coin.market_cap.toLocaleString(1)}</td>
-                    <td>${coin.circulating_supply.toLocaleString()}</td>
+                    <td>${coin.circulating_supply.toLocaleString(1)}</td>
                     <td>${coin.price_change_percentage_24h.toFixed(2)}%</td>
-                    <td></td>
                 </tr>
             `)
             .join("");
