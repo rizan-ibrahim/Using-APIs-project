@@ -99,14 +99,20 @@ const fetchCoinsData = async () => {
                     <td>$${coin.total_volume.toLocaleString(1)}</td>
                     <td>$${coin.market_cap.toLocaleString(1)}</td>
                     <td>${coin.circulating_supply.toLocaleString(1)}</td>
-                    <td>${coin.price_change_percentage_24h.toFixed(2)}%</td>
+                    <td>${coin.price_change_percentage_24h ? coin.price_change_percentage_24h.toFixed(1) + "%" : "N/A"}</td>
+
                 </tr>
+                
             `)
+            
             
             .join("");
     } catch (error) {
         console.error("Error fetching crypto data:", error);
     }
+
+   
+    
 };
 
 
