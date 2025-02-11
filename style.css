@@ -145,9 +145,9 @@ tr {
 
 .filter-div {
   background-color: rgba(127, 220, 5, 0.304);
-  display: flex; /* Use display flex to center contents */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 90px;
   width: 100%;
 }

@@ -1,7 +1,7 @@
 import { topCrypto } from "./constant.js";
 
 let cryptoData = [];
-let currentIndex = 0; // Tracks the number of coins currently shown
+let currentIndex = 0;
 
 const createTable = async () => {
   const userInterface = document.getElementById("user-interface");
@@ -54,7 +54,6 @@ const createTable = async () => {
     <div>Price Change (24h)</div>
   `;
 
-  // Append elements
   userInterface.appendChild(header);
   dataContainer.appendChild(tbody);
   dataContainer.appendChild(errorMessage);
@@ -78,7 +77,6 @@ const createTable = async () => {
   await fetchCoinsData();
 };
 
-// Fetch coins data only once and store in `cryptoData`
 const fetchCoinsData = async () => {
   try {
     const response = await fetch(`${topCrypto}`);
@@ -98,14 +96,11 @@ const fetchCoinsData = async () => {
   }
 };
 
-// Function to load more coins
 const loadMoreCoins = () => {
   const tbody = document.getElementById("token-body");
 
-  // Slice the next set of coins to display (20 at a time)
   const coinsToDisplay = cryptoData.slice(currentIndex, currentIndex + 20);
 
-  // Increment the current index to keep track of how many coins we've shown
   currentIndex += 20;
 
   tbody.innerHTML += coinsToDisplay
